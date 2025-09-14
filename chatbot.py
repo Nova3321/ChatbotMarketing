@@ -40,15 +40,23 @@ download_full_txt()
 # --------------------------
 # Télécharger les ressources NLTK (seulement si nécessaire)
 # --------------------------
+# Télécharger les ressources NLTK (seulement si nécessaire)
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
     nltk.download('punkt')
 
+# ⚡ Ajouter ce bloc pour éviter l'erreur punkt_tab
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab')
+
 try:
     nltk.data.find('corpora/wordnet')
 except LookupError:
     nltk.download('wordnet')
+
 
 # Cache pour les modèles avec Streamlit
 @st.cache_resource
