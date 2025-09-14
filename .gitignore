@@ -6,3 +6,4 @@ sources/
 # Fichiers trop lourds
 *.pkl
 *.pickle
+*.pkl
