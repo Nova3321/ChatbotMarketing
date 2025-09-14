@@ -15,18 +15,31 @@ import re
 from urllib.robotparser import RobotFileParser
 from deep_translator import GoogleTranslator
 from transformers import pipeline
-import os
-import gdown
 
+# --------------------------
+# Téléchargement automatique de full.txt depuis Google Drive
+# --------------------------
 FILE_ID = "1MlldsoU3xCuGckVzrmS5oYKGlYcIeU-R"
-FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
+FILE_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
 FILE_PATH = "full.txt"
 
-if not os.path.exists(FILE_PATH):
-    print("Téléchargement de full.txt depuis Google Drive…")
-    gdown.download(FILE_URL, FILE_PATH, quiet=False)
+def download_full_txt():
+    if not os.path.exists(FILE_PATH):
+        print("📥 Téléchargement de full.txt depuis Google Drive…")
+        response = requests.get(FILE_URL)
+        if response.status_code == 200:
+            with open(FILE_PATH, "wb") as f:
+                f.write(response.content)
+            print("✅ Téléchargement terminé.")
+        else:
+            print("❌ Erreur lors du téléchargement de full.txt")
 
+# Lancer le téléchargement au démarrage
+download_full_txt()
+
+# --------------------------
 # Télécharger les ressources NLTK (seulement si nécessaire)
+# --------------------------
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
@@ -36,7 +49,6 @@ try:
     nltk.data.find('corpora/wordnet')
 except LookupError:
     nltk.download('wordnet')
-
 
 # Cache pour les modèles avec Streamlit
 @st.cache_resource
