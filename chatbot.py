@@ -15,6 +15,16 @@ import re
 from urllib.robotparser import RobotFileParser
 from deep_translator import GoogleTranslator
 from transformers import pipeline
+import os
+import gdown
+
+FILE_ID = "1MlldsoU3xCuGckVzrmS5oYKGlYcIeU-R"
+FILE_URL = f"https://drive.google.com/uc?id={FILE_ID}"
+FILE_PATH = "full.txt"
+
+if not os.path.exists(FILE_PATH):
+    print("Téléchargement de full.txt depuis Google Drive…")
+    gdown.download(FILE_URL, FILE_PATH, quiet=False)
 
 # Télécharger les ressources NLTK (seulement si nécessaire)
 try:
