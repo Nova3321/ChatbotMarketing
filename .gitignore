@@ -3,3 +3,6 @@
 "full.txt" 
 Full.txt
 sources/
+# Fichiers trop lourds
+*.pkl
+*.pickle
